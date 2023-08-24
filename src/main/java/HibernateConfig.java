@@ -52,7 +52,7 @@ public class HibernateConfig {
     }
 
     private static void getAnnotationConfiguration(Configuration configuration) {
-
+        configuration.addAnnotatedClass(Student.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig() {
