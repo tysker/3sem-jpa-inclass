@@ -52,6 +52,8 @@ public class HibernateConfig {
     }
 
     private static void getAnnotationConfiguration(Configuration configuration) {
+        configuration.addAnnotatedClass(Event.class);
+        configuration.addAnnotatedClass(Festival.class);
 
     }
 
