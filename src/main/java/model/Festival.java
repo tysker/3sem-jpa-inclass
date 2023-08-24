@@ -1,3 +1,5 @@
+package model;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -6,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 
-@NamedQuery(name = "Festival.deleteAllRows", query = "DELETE from Festival")
+@NamedQuery(name = "model.Festival.deleteAllRows", query = "DELETE from Festival")
 @Getter
 @NoArgsConstructor
 @Entity

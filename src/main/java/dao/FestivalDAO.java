@@ -1,4 +1,7 @@
+package dao;
+
 import jakarta.persistence.EntityManagerFactory;
+import model.Festival;
 
 public class FestivalDAO {
 

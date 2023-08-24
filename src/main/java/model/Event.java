@@ -1,12 +1,17 @@
+package model;
+
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 @Table(name = "event")
+@ToString
 @Entity
 public class Event {
 
@@ -36,6 +41,11 @@ public class Event {
     }
 
     public Event(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public Event(int id, String eventName) {
+        this.id = id;
         this.eventName = eventName;
     }
 

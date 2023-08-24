@@ -1,5 +1,7 @@
 import jakarta.persistence.EntityManagerFactory;
 import lombok.NoArgsConstructor;
+import model.Event;
+import model.Festival;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;

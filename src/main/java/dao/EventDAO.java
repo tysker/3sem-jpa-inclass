@@ -1,4 +1,8 @@
+package dao;
+
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.transaction.Transactional;
+import model.Event;
 
 public class EventDAO {
 
@@ -21,11 +25,18 @@ public class EventDAO {
         }
     }
 
-    public void updateEvent(Event event) {
+    public Event updateEvent(Event event) {
         try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
-            em.merge(event);
+            Event merge = em.merge(event);
             em.getTransaction().commit();
+            return merge;
+        }
+    }
+
+    public Event findEvent(int id) {
+        try (var em = emf.createEntityManager()) {
+            return em.find(Event.class, id);
         }
     }
 }

@@ -1,4 +1,9 @@
+import dao.EventDAO;
+import dao.FestivalDAO;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import model.Event;
+import model.Festival;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -10,14 +15,8 @@ public class Main {
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig();
 
         EventDAO eventDAO = EventDAO.getInstance(emf);
-
-        Event event1 = new Event("Event 2");
-        eventDAO.persistEvent(event1);
-
-        event1.setEventName("Event 3");
-
-        eventDAO.updateEvent(event1);
-
+        Event event = new Event("Roskilde Festival");
+        eventDAO.persistEvent(event);
 
         FestivalDAO festivalDAO = FestivalDAO.getInstance(emf);
         Festival copenhell = new Festival(
