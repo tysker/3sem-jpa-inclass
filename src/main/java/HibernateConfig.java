@@ -1,5 +1,7 @@
 import jakarta.persistence.EntityManagerFactory;
 import lombok.NoArgsConstructor;
+import model.EntityA;
+import model.EntityB;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -52,12 +54,12 @@ public class HibernateConfig {
     }
 
     private static void getAnnotationConfiguration(Configuration configuration) {
-
+        configuration.addAnnotatedClass(EntityA.class);
+        configuration.addAnnotatedClass(EntityB.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig() {
         if (entityManagerFactory == null) entityManagerFactory = buildEntityFactoryConfig();
         return entityManagerFactory;
     }
-
 }
