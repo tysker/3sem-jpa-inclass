@@ -2,6 +2,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor
 @Table(name = "phone")
@@ -20,9 +22,17 @@ public class Phone {
     @Column(name = "type", nullable = false)
     private PhoneType type;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime createdAt;
+
     public Phone(String number, PhoneType type) {
         this.number = number;
         this.type = type;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public enum PhoneType {
