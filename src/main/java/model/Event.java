@@ -40,13 +40,12 @@ public class Event {
         this.setUpdatedAt(LocalDateTime.now());
     }
 
-    public Event(String eventName, LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public Event(String eventName) {
         this.eventName = eventName;
     }
 
-    public Event(int id, String eventName) {
-        this.id = id;
+    public Event(String eventName, LocalDateTime createdAt) {
+        this.createdAt = createdAt;
         this.eventName = eventName;
     }
 
