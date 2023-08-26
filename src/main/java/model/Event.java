@@ -40,7 +40,8 @@ public class Event {
         this.setUpdatedAt(LocalDateTime.now());
     }
 
-    public Event(String eventName) {
+    public Event(String eventName, LocalDateTime createdAt) {
+        this.createdAt = createdAt;
         this.eventName = eventName;
     }
 
