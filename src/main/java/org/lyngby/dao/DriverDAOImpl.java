@@ -1,6 +1,7 @@
 package org.lyngby.dao;
 
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import lombok.NoArgsConstructor;
 import org.lyngby.model.Driver;
@@ -23,8 +24,8 @@ public class DriverDAOImpl implements DriverDAO {
     }
 
     @Override
-    public String saveDriver(String name, String surname, BigDecimal salary){
-        try(var em = emf.createEntityManager()){
+    public String saveDriver(String name, String surname, BigDecimal salary) {
+        try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
             Driver driver = new Driver(name, surname, salary);
             em.persist(driver);
@@ -35,14 +36,14 @@ public class DriverDAOImpl implements DriverDAO {
 
     @Override
     public Driver getDriverById(String id) {
-        try(var em = emf.createEntityManager()){
+        try (var em = emf.createEntityManager()) {
             return em.find(Driver.class, id);
         }
     }
 
     @Override
     public Driver updateDriver(Driver driver) {
-        try(var em = emf.createEntityManager()){
+        try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
             em.merge(driver);
             em.getTransaction().commit();
@@ -52,7 +53,7 @@ public class DriverDAOImpl implements DriverDAO {
 
     @Override
     public void deleteDriver(String id) {
-        try(var em = emf.createEntityManager()){
+        try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
             Driver driver = em.find(Driver.class, id);
             em.remove(driver);
@@ -62,7 +63,7 @@ public class DriverDAOImpl implements DriverDAO {
 
     @Override
     public List<Driver> findAllDriversEmployedAtTheSameYear(String year) {
-        try(var em = emf.createEntityManager()) {
+        try (var em = emf.createEntityManager()) {
             TypedQuery<Driver> query = em.createQuery(
                     "SELECT d FROM Driver d WHERE YEAR(d.employmentDate) = :year",
                     Driver.class
@@ -73,8 +74,15 @@ public class DriverDAOImpl implements DriverDAO {
     }
 
     @Override
-    public List<BigDecimal> fetchAllDriversWithSalaryGreaterThan10000() {
-        return null;
+    public List<BigDecimal> fetchAllDriversWithSalaryGreaterThan(BigDecimal threshold) {
+        try (var em = emf.createEntityManager()) {
+            String sql = "SELECT * FROM Driver WHERE salary > :threshold";
+            Query nativeQuery = em.createNativeQuery(sql, Driver.class);
+            nativeQuery.setParameter("threshold", threshold);
+            nativeQuery.setMaxResults(2);
+
+            return nativeQuery.getResultList();
+        }
     }
 
     @Override
