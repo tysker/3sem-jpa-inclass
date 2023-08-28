@@ -26,7 +26,7 @@ public class EntityA {
     @Enumerated(EnumType.STRING)
     private MyEnum myEnum;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "entitya_id")
     private Set<EntityB> entityBList = new HashSet<>();
 
@@ -37,5 +37,9 @@ public class EntityA {
 
     public void addRefEntityB(EntityB entityB) {
         entityBList.add(entityB);
+    }
+
+    public void removeRefEntityB(EntityB entityB) {
+        entityBList.remove(entityB);
     }
 }

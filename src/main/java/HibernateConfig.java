@@ -52,7 +52,8 @@ public class HibernateConfig {
     }
 
     private static void getAnnotationConfiguration(Configuration configuration) {
-
+        configuration.addAnnotatedClass(model.EntityA.class);
+        configuration.addAnnotatedClass(model.EntityB.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig() {

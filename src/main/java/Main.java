@@ -7,11 +7,15 @@ public class Main {
 
     public static void main(String[] args) {
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig();
-        myFirstPersist(emf);
+        //myFirstPersist(emf);
 
         try (var em = emf.createEntityManager()) {
+            em.getTransaction().begin();
             EntityA entityA = em.find(EntityA.class, 1);
-            System.out.println(entityA.getEntityBList());
+            EntityB entityB = em.find(EntityB.class, 1);
+            entityA.removeRefEntityB(entityB);
+            em.merge(entityA);
+            em.getTransaction().commit();
         }
     }
 
