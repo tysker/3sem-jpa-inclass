@@ -7,15 +7,15 @@ public class Main {
 
     public static void main(String[] args) {
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig();
-//        myFirstPersist(emf);
+        myFirstPersist(emf);
 
-        try(var em = emf.createEntityManager()) {
-            EntityA entityA = em.find(EntityA.class, 1);
-
-            em.detach(entityA);
-            entityA.setPrice(100.0D);
-
-        }
+//        try(var em = emf.createEntityManager()) {
+//            EntityA entityA = em.find(EntityA.class, 1);
+//
+//            em.detach(entityA);
+//            entityA.setPrice(100.0D);
+//
+//        }
     }
 
     private static void myFirstPersist(EntityManagerFactory emf) {
@@ -26,7 +26,6 @@ public class Main {
             em.getTransaction().begin();
             em.persist(entityA);
             em.persist(entityB);
-            em.persist(new EntityA("C", 154.69D, MyEnum.ConstC));
             em.getTransaction().commit();
         }
     }

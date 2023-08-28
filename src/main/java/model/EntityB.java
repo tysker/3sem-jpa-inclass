@@ -20,6 +20,9 @@ public class EntityB {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @OneToOne(mappedBy = "entityB")
+    private EntityA entityA;
+
     public EntityB(String name) {
         this.name = name;
     }

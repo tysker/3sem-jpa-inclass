@@ -27,6 +27,7 @@ public class EntityA {
     private MyEnum myEnum;
 
     @OneToOne
+    @MapsId
     private EntityB entityB;
 
     public EntityA(String name, double price, MyEnum myEnum) {
