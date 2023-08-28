@@ -7,13 +7,13 @@ public class Main {
 
     public static void main(String[] args) {
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig();
-        //myFirstPersist(emf);
+        myFirstPersist(emf);
 
         try(var em = emf.createEntityManager()) {
             var entityA = em.find(EntityA.class, 1);
-            System.out.println(entityA);
-            System.out.println(entityA.getEntityB());
+
         }
+
 
     }
 
