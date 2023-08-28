@@ -1,9 +1,13 @@
+package org.lyngby.config;
+
 import jakarta.persistence.EntityManagerFactory;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.lyngby.model.Driver;
+import org.lyngby.model.WasteTruck;
 
 import java.util.Properties;
 
@@ -52,7 +56,8 @@ public class HibernateConfig {
     }
 
     private static void getAnnotationConfiguration(Configuration configuration) {
-
+        configuration.addAnnotatedClass(Driver.class);
+        configuration.addAnnotatedClass(WasteTruck.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig() {
