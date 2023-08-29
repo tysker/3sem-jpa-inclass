@@ -19,14 +19,14 @@ class DriverDAOImplTest {
 
     private static EntityManagerFactory emf;
     private static EntityManager em;
-    private static DriverDAOImpl dao;
+    private static DriverDAO dao;
     private static List<String> driverids;
 
     @BeforeAll
     static void setUpAll() {
         emf = HibernateTestConfig.getEntityManagerFactoryConfig();
         em = emf.createEntityManager();
-        dao = DriverDAOImpl.getInstance(emf);
+        dao = DriverDAO.getInstance(emf);
         driverids = new ArrayList<>();
         deleteAllDrivers();
         createDrivers();

@@ -16,13 +16,13 @@ class WasteTruckDAOImplTest {
 
     private static EntityManagerFactory emf;
     private static EntityManager em;
-    private static WasteTruckDAOImpl dao;
+    private static WasteTruckDAO dao;
     private static Driver jacob;
 
     @BeforeAll
     static void setUpAll() {
         emf = HibernateTestConfig.getEntityManagerFactoryConfig();
-        dao = WasteTruckDAOImpl.getInstance(emf);
+        dao = WasteTruckDAO.getInstance(emf);
         jacob = new Driver("Jacob", "Jensen", new BigDecimal(12500));
     }
 
