@@ -6,8 +6,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-import org.lyngby.model.Driver;
-import org.lyngby.model.WasteTruck;
 
 import java.util.Properties;
 
@@ -56,8 +54,6 @@ public class HibernateTestConfig {
     }
 
     private static void getAnnotationConfiguration(Configuration configuration) {
-        configuration.addAnnotatedClass(Driver.class);
-        configuration.addAnnotatedClass(WasteTruck.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig() {
