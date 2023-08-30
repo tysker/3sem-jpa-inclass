@@ -1,6 +1,7 @@
 package dk.lyngby.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -26,28 +27,21 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private TicketType ticketType;
 
-//    @Id
-//    @MapsId
     @ManyToOne
     private Guest guest;
 
-//    @Id
-//    @MapsId
     @ManyToOne
     private Event event;
 
-    public Ticket(double price, int quantity, TicketType ticketType) {
+    @Builder
+    public Ticket(double price, int quantity, TicketType ticketType, Guest guest, Event event) {
         this.price = price;
         this.quantity = quantity;
         this.ticketType = ticketType;
-    }
-
-    public void setTicket(Guest guest, Event event) {
         this.guest = guest;
         this.event = event;
-        guest.addTicket(this);
-        event.addTicket(this);
     }
+
 
     public enum TicketType {
         VIP, STANDARD

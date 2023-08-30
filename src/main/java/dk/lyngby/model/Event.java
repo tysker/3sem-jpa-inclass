@@ -21,6 +21,7 @@ public class Event {
     @Column(name = "id", unique = true, nullable = false)
     private int id;
 
+    @Access(AccessType.PROPERTY)
     @Column(name = "name", nullable = false)
     private String eventName;
 
@@ -33,13 +34,7 @@ public class Event {
     private LocalDate endDate;
 
     @OneToMany(mappedBy = "event")
-    @ToString.Exclude
     private Set<Ticket> tickets = new HashSet<>();
-
-    public void setTickets(Set<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
 
     public Event(String eventName, LocalDate startDate, LocalDate endDate) {
         this.eventName = eventName;
@@ -47,12 +42,7 @@ public class Event {
         this.endDate = endDate;
     }
 
-    public void addTicket(Ticket ticket) {
-        if (ticket != null) {
-            tickets.add(ticket);
-        }
+    public void setEventName(String eventName) {
+        this.eventName = eventName.toUpperCase();
     }
-
-
-
 }

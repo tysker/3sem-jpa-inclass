@@ -14,18 +14,10 @@ import java.time.LocalDate;
 
 public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
-
     private static EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig();
 
     public static void main(String[] args) {
         persistNew();
-
-        try (var em = emf.createEntityManager()) {
-            TypedQuery<Guest> query = em.createQuery("SELECT g FROM Guest g", Guest.class);
-            query.getResultList().forEach(System.out::println);
-
-        }
-
 
     }
 
@@ -51,50 +43,38 @@ public class Main {
                 LocalDate.of(2021, 6, 26),
                 LocalDate.of(2021, 7, 3));
 
-        Ticket ticket = new Ticket(750D, 1, Ticket.TicketType.VIP);
-        Ticket ticket2 = new Ticket(70D, 1, Ticket.TicketType.STANDARD);
+        Event copenhellFestival = new Event(
+                "Copenhell Festival",
+                LocalDate.of(2021, 6, 26),
+                LocalDate.of(2021, 7, 3));
 
-        ticket.setTicket(steve, roskildeFestival);
-        ticket2.setTicket(frank, roskildeFestival);
+        Ticket roskildeTicket = Ticket.builder()
+                .price(750D)
+                .quantity(2)
+                .ticketType(Ticket.TicketType.VIP)
+                .guest(steve)
+                .event(roskildeFestival)
+                .build();
 
+        Ticket copenhellTicket = Ticket.builder()
+                .price(550D)
+                .quantity(1)
+                .ticketType(Ticket.TicketType.VIP)
+                .guest(steve)
+                .event(copenhellFestival)
+                .build();
+
+        steve.addTicket(roskildeTicket);
+        steve.addTicket(copenhellTicket);
 
         try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
             em.persist(steve);
             em.persist(frank);
             em.persist(roskildeFestival);
-            em.persist(ticket);
-            em.persist(ticket2);
-            em.getTransaction().commit();
-        }
-    }
-
-    private static void persistEntities() {
-        try (var em = emf.createEntityManager()) {
-            em.getTransaction().begin();
-
-            Guest steve = Guest.builder()
-                    .email("steve@mail.com")
-                    .name("Steve")
-                    .surname("Jobs")
-                    .telephoneNumber("12345678")
-                    .age(56)
-                    .build();
-
-            Guest frank = Guest.builder()
-                    .email("frank@mail.com")
-                    .name("Frank")
-                    .surname("Hansen")
-                    .telephoneNumber("123456789")
-                    .age(25)
-                    .build();
-
-            Event roskildeFestival = new Event(
-                    "Roskilde Festival",
-                    LocalDate.of(2021, 6, 26),
-                    LocalDate.of(2021, 7, 3));
-
-
+            em.persist(copenhellFestival);
+            em.persist(roskildeTicket);
+            em.persist(copenhellTicket);
             em.getTransaction().commit();
         }
     }

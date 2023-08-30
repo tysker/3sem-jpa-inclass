@@ -37,16 +37,12 @@ public class Guest {
     @Column(name = "age", nullable = false)
     private int age;
 
-    @OneToMany(mappedBy = "guest",fetch = FetchType.EAGER)
-    @ToString.Exclude
-    private Set<Ticket> ticketSet = new HashSet<>();
-
-    public void setTicketSet(Set<Ticket> ticketSet) {
-        this.ticketSet = ticketSet;
-    }
+    @OneToMany(mappedBy = "guest")
+    private Set<Ticket> tickets = new HashSet<>();
 
     @Builder
-    public Guest(String email, String name, String surname, String telephoneNumber, int age) {
+    public Guest(String email, String name, String surname, String telephoneNumber, int age)
+    {
         this.email = email;
         this.name = name;
         this.surname = surname;
@@ -54,11 +50,8 @@ public class Guest {
         this.age = age;
     }
 
-    public void addTicket(Ticket ticket) {
-        if (ticket != null) {
-            ticketSet.add(ticket);
-        }
+    public void addTicket(Ticket ticket)
+    {
+        this.tickets.add(ticket);
     }
-
-
 }
