@@ -1,14 +1,17 @@
 package dk.lyngby.model;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 public class Company {
 
     @Id
     @GeneratedValue
     private Integer id;
 
+    @Access(AccessType.PROPERTY)
     private String name;
 
     private String address;
@@ -23,8 +26,6 @@ public class Company {
     })
     private ContactPerson contactPerson;
 
-    public Company() {
-    }
 
     public Company(String name, String address, String phone) {
         this.name = name;
@@ -34,5 +35,9 @@ public class Company {
 
     public void setContactPerson(ContactPerson contactPerson) {
         this.contactPerson = contactPerson;
+    }
+
+    public void setName(String name) {
+        this.name = name.toUpperCase();
     }
 }
