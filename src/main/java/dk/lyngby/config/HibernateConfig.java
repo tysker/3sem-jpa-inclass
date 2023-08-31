@@ -1,5 +1,6 @@
 package dk.lyngby.config;
 
+import dk.lyngby.model.Company;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
@@ -54,7 +55,7 @@ public class HibernateConfig {
     }
 
     private static void getAnnotationConfiguration(Configuration configuration) {
-
+        configuration.addAnnotatedClass(Company.class);
     }
 
     public static EntityManagerFactory getEntityManagerFactoryConfig() {
