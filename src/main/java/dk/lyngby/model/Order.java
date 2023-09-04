@@ -3,12 +3,14 @@ package dk.lyngby.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
 @NoArgsConstructor
+@ToString
 @Table(name = "orders")
 @Entity
 @NamedQuery(name = "Order.deleteAllRows", query = "DELETE from Order")

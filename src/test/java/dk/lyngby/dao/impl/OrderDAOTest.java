@@ -1,6 +1,7 @@
 package dk.lyngby.dao.impl;
 
 import dk.lyngby.config.HibernateConfig;
+import dk.lyngby.dto.OrderDTO;
 import dk.lyngby.model.Customer;
 import dk.lyngby.model.Order;
 import dk.lyngby.model.OrderLine;
@@ -10,6 +11,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -99,29 +102,39 @@ class OrderDAOTest {
     @Test
     void findAllOrdersByCustomer() {
         // given
+        Customer customer = customerDAO.getCustomer(1);
 
         // when
+        List<OrderDTO> allOrdersByCustomer = orderDAO.findAllOrdersByCustomer(customer);
+        System.out.println(allOrdersByCustomer);
 
         // then
+        assertEquals(2, allOrdersByCustomer.size());
     }
 
     @Test
     void saveOrderLineForProductAndAddToOrder() {
         // given
+        Product product = new Product("Sweatshirt", Product.Category.CLOTHES, 125.0);
+        Order order = orderDAO.getOrderById(1);
 
         // when
+        Order order1 = orderDAO.saveOrderLineForSpecifikProductAndAddItToAnOrder(product, order);
 
         // then
+        assertEquals(2, order1.getCustomer().getOrders().size());
+
     }
 
     @Test
     void totalPriceOfAnOrder() {
         // given
-        Customer customer = customerDAO.getCustomer(1);
+        Order order = orderDAO.getOrderById(2);
 
         // when
-
+        double totalPriceOfAnOrder = orderDAO.totalPriceOfAnOrder(order);
 
         // then
+        assertEquals(115.0, totalPriceOfAnOrder);
     }
 }

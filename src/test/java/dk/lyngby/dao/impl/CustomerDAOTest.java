@@ -28,7 +28,7 @@ class CustomerDAOTest {
 
         try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
-            em.createNativeQuery("ALTER SEQUENCE customers_id_seq RESTART WITH 1").executeUpdate();
+            em.createNativeQuery("ALTER SEQUENCE customers_customer_id_seq RESTART WITH 1").executeUpdate();
             em.createNamedQuery("Customer.deleteAllRows").executeUpdate();
             em.persist(customer1);
             em.persist(customer2);

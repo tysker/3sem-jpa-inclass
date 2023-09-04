@@ -21,7 +21,6 @@ public class Customer {
     @Column(name = "customer_id", nullable = false, updatable = false)
     private int customerId;
 
-    @Access(AccessType.PROPERTY)
     @Column(name = "customer_name", nullable = false, length = 50)
     private String name;
 
@@ -35,10 +34,6 @@ public class Customer {
     public Customer(String name, String email) {
         this.name = name;
         this.email = email;
-    }
-
-    public void setName(String name) {
-        this.name = name.toUpperCase();
     }
 
     public void addOrder(Order order) {
