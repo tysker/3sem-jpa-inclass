@@ -17,11 +17,20 @@ public class ProductDAO implements dk.lyngby.dao.IProductDAO{
     }
     @Override
     public int saveProduct(Product product) {
-        return 0;
+        try (var em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.persist(product);
+            em.getTransaction().commit();
+        }
+        return product.getProductId();
     }
 
     @Override
     public Product getProduct(int id) {
-        return null;
+        try (var em = emf.createEntityManager())
+        {
+            return em.find(Product.class, id);
+        }
     }
 }

@@ -41,6 +41,8 @@ public class CustomerDAO implements dk.lyngby.dao.ICustomerDAO {
         try (var em = emf.createEntityManager())
         {
             TypedQuery<Customer> query = em.createQuery("SELECT c FROM Customer c", Customer.class);
+            query.setHint("javax.persistence.cache.storeMode", "REFRESH"); // This is to avoid the cache
+
             return query.getResultList();
         }
     }

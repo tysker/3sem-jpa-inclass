@@ -13,6 +13,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -91,11 +93,11 @@ class OrderDAOTest {
         Customer customer = customerDAO.getCustomer(1);
 
         // when
-        Order order = orderDAO.saveOrderAndAddToCustomer(o1, customer);
+        BiFunction<Order, Customer, Order> saveOrderAndAddToCustomer = orderDAO::saveOrderAndAddToCustomer;
 
         // then
 
-        assertEquals(customer.getName(), order.getCustomer().getName());
+        assertEquals(customer.getName(), saveOrderAndAddToCustomer.apply(o1, customer).getCustomer().getName());
 
     }
 
@@ -105,11 +107,10 @@ class OrderDAOTest {
         Customer customer = customerDAO.getCustomer(1);
 
         // when
-        List<OrderDTO> allOrdersByCustomer = orderDAO.findAllOrdersByCustomer(customer);
-        System.out.println(allOrdersByCustomer);
+        Function<Customer, List<OrderDTO>> findAllOrdersByCustomer = orderDAO::findAllOrdersByCustomer;
 
         // then
-        assertEquals(2, allOrdersByCustomer.size());
+        assertEquals(2, findAllOrdersByCustomer.apply(customer).size());
     }
 
     @Test
@@ -119,11 +120,11 @@ class OrderDAOTest {
         Order order = orderDAO.getOrderById(1);
 
         // when
-        Order order1 = orderDAO.saveOrderLineForSpecifikProductAndAddItToAnOrder(product, order);
+        BiFunction<Product, Order, Order> saveOrderLineForSpecifikProductAndAddItToAnOrder = orderDAO::saveOrderLineForSpecifikProductAndAddItToAnOrder;
+
 
         // then
-        assertEquals(2, order1.getCustomer().getOrders().size());
-
+        assertEquals(2, saveOrderLineForSpecifikProductAndAddItToAnOrder.apply(product, order).getCustomer().getOrders().size());
     }
 
     @Test
@@ -132,9 +133,9 @@ class OrderDAOTest {
         Order order = orderDAO.getOrderById(2);
 
         // when
-        double totalPriceOfAnOrder = orderDAO.totalPriceOfAnOrder(order);
+        Function<Order, Double> totalPriceOfAnOrder = orderDAO::totalPriceOfAnOrder;
 
         // then
-        assertEquals(115.0, totalPriceOfAnOrder);
+        assertEquals(115.0, totalPriceOfAnOrder.apply(order));
     }
 }
