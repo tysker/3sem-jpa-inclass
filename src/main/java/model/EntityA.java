@@ -26,17 +26,13 @@ public class EntityA {
     @Enumerated(EnumType.STRING)
     private MyEnum myEnum;
 
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "entitya_id")
+    @OneToMany(mappedBy = "refEntityA", fetch = FetchType.LAZY,orphanRemoval = true)
+    @ToString.Exclude
     private Set<EntityB> entityBList = new HashSet<>();
 
     public EntityA(String name, MyEnum myEnum) {
         this.name = name;
         this.myEnum = myEnum;
-    }
-
-    public void addRefEntityB(EntityB entityB) {
-        entityBList.add(entityB);
     }
 
     public void removeRefEntityB(EntityB entityB) {

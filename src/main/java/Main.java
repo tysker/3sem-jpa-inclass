@@ -7,14 +7,12 @@ public class Main {
 
     public static void main(String[] args) {
         EntityManagerFactory emf = HibernateConfig.getEntityManagerFactoryConfig();
-        //myFirstPersist(emf);
+        myFirstPersist(emf);
 
         try (var em = emf.createEntityManager()) {
             em.getTransaction().begin();
             EntityA entityA = em.find(EntityA.class, 1);
-            EntityB entityB = em.find(EntityB.class, 1);
-            entityA.removeRefEntityB(entityB);
-            em.merge(entityA);
+            System.out.println(entityA.getEntityBList());
             em.getTransaction().commit();
         }
     }
@@ -28,9 +26,9 @@ public class Main {
 
             EntityA entityA = new EntityA("testStringA", MyEnum.ConstA);
 
-            entityA.addRefEntityB(entityB);
-            entityA.addRefEntityB(entityB2);
-            entityA.addRefEntityB(entityB3);
+            entityB.setRefEntityA(entityA);
+            entityB2.setRefEntityA(entityA);
+            entityB3.setRefEntityA(entityA);
 
             em.getTransaction().begin();
             em.persist(entityA);

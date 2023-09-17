@@ -20,7 +20,16 @@ public class EntityB {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @ManyToOne
+    private EntityA refEntityA;
+
     public EntityB(String name) {
         this.name = name;
     }
+
+    public void setRefEntityA(EntityA entityA) {
+        this.refEntityA = entityA;
+        entityA.getEntityBList().add(this);
+    }
+    
 }
